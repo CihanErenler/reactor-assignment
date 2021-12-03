@@ -1,38 +1,231 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #F3F4F7;
+  --color-white: #fff;
+  --color-gray-1: #f3f3f3;
+  --color-gray-2: #444;
+  --color-gray-3: #555;
+  --color-gray-4: #666;
+  --color-gray-5: #777;
+  --color-gray-6: #888;
+  --color-gray-7: #999;
+  --color-gray-8: #ddd;
+  --color-text: #384A5D;
+  --color-title: #623CEA;
+  --color-winner: #00cfc5;
+  --color-winner-bg: #dffffd;
+  --color-live: #E1223B;
+  --color-live-bg: #FDEAED;
+  --transition: all .3s ease;
+
+  --color-shadow: rgba(0, 0, 0, 0.02) 0px 3px 5px;
+  ;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Reset */
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* General stylings */
+html, body {
   min-height: 100vh;
+  background-color: var(--bg-color);
+  font-family: 'Outfit',
+  sans-serif;
+  background-color: var(--color-bg);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.matches {
+  height: 100vh;
+  overflow: auto;
+  padding: 1rem;
+  margin-bottom: 0.625rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: var(--color-shadow);
+}
+/* 
+.beginning-game {
+  position: relative;
+  overflow: hidden;
+}
+
+.beginning-game::before {
+  position: absolute;
+  content: "";
+  width: 3px;
+  height: 100px;
+  background-color: var(--color-gray-2);
+  transform: rotate(45deg) translateY(-50%);
+  left: 40%;
+  top: 40%;
+
+} */
+
+.ongoing {
+  width: 100%;
+  background-color: var(--color-white);
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 1rem;
+  position: relative;
+   box-shadow: var(--color-shadow);
+}
+
+.ongoing-index {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--color-gray-6);
+}
+
+.ongoing .player {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 1rem;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.ongoing > div:nth-child(3) {
+  border-left: 1px solid var(--color-bg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ongoing .player.winner::after {
+  position: absolute;
+  content: "Winner";
+  right: 1rem;
+  bottom: 1rem;
+  background-color: var(--color-winner-bg);
+  color: var(--color-winner);
+  min-width: 7rem;
+  height: 1.5rem;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matches .match {
+width: 100%;
+background-color: var(--color-white);
+color: var(--color-text);
+margin-bottom: 0.625rem;
+border-radius: 14px;
+padding: 0.625rem;
+display: grid;
+grid-template-columns: 45% 10% 45%;
+align-items: center;
+}
+
+.played {
+  font-weight: bold;
+}
+
+.versus {
+  height: 30px;
+  width: 45px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .625rem;
+  color: var(--color-winner);
+  border-radius: 30px;
+  font-weight: bold;
+  background-color: var(--color-winner-bg);
+  position: relative;
+  z-index: 1;
+;
+}
+
+.title {
+  margin-bottom: 1rem;
+  color: var(--color-title);
+  font-weight: 500;
+  padding: .625rem;
+  font-size: 1.8rem;
+  background-color: var(--color-white);
+  border-radius: .625rem;
+  box-shadow: var(--color-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hand {
+  width: 70px;
+}
+
+.player-name {
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: var(--transition)
+}
+
+.player-name:hover {
+  color: var(--color-title);
+}
+
+.results {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.live {
+  color: var(--color-live);
+  background-color: var(--color-live-bg);
+  font-size: 1rem;
+  font-weight: bold;
+  padding: .2rem .625rem;
+  border-radius: 5px;
+  position: relative;
+  margin-left: 10px;;
+}
+
+.time {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--color-gray-7);
 }

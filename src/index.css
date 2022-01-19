@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap");
 
 :root {
-  --color-bg: #F3F4F7;
+  --color-bg: #f3f4f7;
   --color-white: #fff;
   --color-gray-1: #f3f3f3;
   --color-gray-2: #444;
@@ -11,32 +11,39 @@
   --color-gray-6: #888;
   --color-gray-7: #999;
   --color-gray-8: #ddd;
-  --color-text: #384A5D;
-  --color-title: #623CEA;
+  --color-text: #384a5d;
+  --color-title: #623cea;
   --color-winner: #00cfc5;
   --color-winner-bg: #dffffd;
-  --color-live: #E1223B;
-  --color-live-bg: #FDEAED;
-  --transition: all .3s ease;
+  --color-live: #e1223b;
+  --color-live-bg: #fdeaed;
+  --transition: all 0.3s ease;
 
   --color-shadow: rgba(0, 0, 0, 0.02) 0px 3px 5px;
-  ;
 }
 
 /* Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 /* General stylings */
-html, body {
+html,
+body {
   min-height: 100vh;
   background-color: var(--bg-color);
-  font-family: 'Outfit',
-  sans-serif;
+  font-family: "Outfit", sans-serif;
   background-color: var(--color-bg);
+}
+
+p {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 .container {
@@ -74,23 +81,6 @@ html, body {
   text-align: center;
   box-shadow: var(--color-shadow);
 }
-/* 
-.beginning-game {
-  position: relative;
-  overflow: hidden;
-}
-
-.beginning-game::before {
-  position: absolute;
-  content: "";
-  width: 3px;
-  height: 100px;
-  background-color: var(--color-gray-2);
-  transform: rotate(45deg) translateY(-50%);
-  left: 40%;
-  top: 40%;
-
-} */
 
 .ongoing {
   width: 100%;
@@ -100,7 +90,7 @@ html, body {
   grid-template-columns: 1fr 1fr;
   border-radius: 1rem;
   position: relative;
-   box-shadow: var(--color-shadow);
+  box-shadow: var(--color-shadow);
 }
 
 .ongoing-index {
@@ -132,7 +122,7 @@ html, body {
   bottom: 1rem;
   background-color: var(--color-winner-bg);
   color: var(--color-winner);
-  min-width: 7rem;
+  min-width: 6rem;
   height: 1.5rem;
   border-radius: 5px;
   font-size: 14px;
@@ -142,16 +132,22 @@ html, body {
   justify-content: center;
 }
 
+@media (max-width: 1440px) {
+  .ongoing .player.winner::after {
+    min-width: 5rem;
+  }
+}
+
 .matches .match {
-width: 100%;
-background-color: var(--color-white);
-color: var(--color-text);
-margin-bottom: 0.625rem;
-border-radius: 14px;
-padding: 0.625rem;
-display: grid;
-grid-template-columns: 45% 10% 45%;
-align-items: center;
+  width: 100%;
+  background-color: var(--color-white);
+  color: var(--color-text);
+  margin-bottom: 0.625rem;
+  border-radius: 14px;
+  padding: 0.625rem;
+  display: grid;
+  grid-template-columns: 45% 10% 45%;
+  align-items: center;
 }
 
 .played {
@@ -164,24 +160,29 @@ align-items: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: .625rem;
+  padding: 0.625rem;
   color: var(--color-winner);
   border-radius: 30px;
   font-weight: bold;
   background-color: var(--color-winner-bg);
   position: relative;
   z-index: 1;
-;
+}
+
+@media (max-width: 1440px) {
+  .versus {
+    width: 30px;
+  }
 }
 
 .title {
   margin-bottom: 1rem;
   color: var(--color-title);
   font-weight: 500;
-  padding: .625rem;
+  padding: 0.625rem;
   font-size: 1.8rem;
   background-color: var(--color-white);
-  border-radius: .625rem;
+  border-radius: 0.625rem;
   box-shadow: var(--color-shadow);
   display: flex;
   align-items: center;
@@ -195,9 +196,15 @@ align-items: center;
 .player-name {
   font-weight: 500;
   color: var(--color-text);
-  text-decoration: underline;
+  /* text-decoration: underline; */
   cursor: pointer;
-  transition: var(--transition)
+  transition: var(--transition);
+}
+
+@media (max-width: 1440px) {
+  .player-name {
+    font-size: 14px;
+  }
 }
 
 .player-name:hover {
@@ -215,10 +222,10 @@ align-items: center;
   background-color: var(--color-live-bg);
   font-size: 1rem;
   font-weight: bold;
-  padding: .2rem .625rem;
+  padding: 0.2rem 0.625rem;
   border-radius: 5px;
   position: relative;
-  margin-left: 10px;;
+  margin-left: 10px;
 }
 
 .time {

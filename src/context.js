@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 const AppContext = React.createContext();
 
@@ -6,10 +6,19 @@ export const AppProvider = ({ children }) => {
   const [newGame, setNewGame] = useState([]);
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [historical, setHistorical] = useState(null);
+  const [historical, setHistorical] = useState([]);
+  const [currentName, setCurrentName] = useState(null);
+  const [currentPerson, setCurrentPerson] = useState([]);
+  const cursor = useRef("");
 
   const base = "wss://bad-api-assignment.reaktor.com";
   const base_url = "https://bad-api-assignment.reaktor.com";
+
+  useEffect(() => {
+    if (currentName) {
+      handleGetData();
+    }
+  }, [currentName]);
 
   // Triggered every initial render
   useEffect(() => {
@@ -47,20 +56,32 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  const handlePlayerClick = async (name) => {
+  const handleName = (name) => {
     console.log(name);
-    const data = await fetch(`${base_url}/rps/history`);
+    setCurrentName(name);
+  };
+
+  const handleGetData = async () => {
+    const data = await fetch(
+      `${base_url}${cursor.current ? `${cursor.current}` : "/rps/history"}`
+    );
     const response = await data.json();
+    cursor.current = await response.cursor;
 
     const personList = response.data.reduce((total, current) => {
-      if (current.playerA.name === name || current.playerB.name === name) {
-        total.push(current);
+      if (
+        current.playerA.name === currentName ||
+        current.playerB.name === currentName
+      ) {
+        if (!total[current.gameId]) total[current.gameId] = [];
+        total[current.gameId].push(current);
       }
+
       return total;
     }, []);
-
+    setCurrentPerson([...currentPerson, ...personList]);
     console.log(personList);
-    setHistorical(personList);
+    handleGetData();
   };
 
   return (
@@ -71,8 +92,8 @@ export const AppProvider = ({ children }) => {
           newGame,
           result,
           loading,
-          handlePlayerClick,
           historical,
+          handleName,
         }}
       >
         {children}
